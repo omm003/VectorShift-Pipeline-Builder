@@ -1,0 +1,11 @@
+# Terminal 1 — Backend
+cd vectorshift-assessment/backend
+python -m venv venv && source venv/bin/activate    # Windows: venv\Scripts\activate
+pip install -r requirements.txt
+uvicorn main:app --reload
+
+
+# Terminal 2 — Frontend
+cd vectorshift-assessment/frontend
+npm install
+npm start

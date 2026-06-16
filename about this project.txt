@@ -1,0 +1,13 @@
+Project Brief — VectorShift Pipeline Builder
+What it is:
+A drag-and-drop AI pipeline builder built with React + ReactFlow on the frontend and Python FastAPI on the backend. Users can visually design data pipelines by connecting nodes — similar to how VectorShift's own product works.
+
+How I built it — 4 parts:
+
+Part 1 — Node Abstraction: Instead of copy-pasting code for every node, I created a single BaseNode component that handles all shared logic — headers, icons, auto-spaced handles, and form fields. All 9 node types (Input, LLM, Output, Text, Filter, Transform, Merge, API Call, Conditional) are built on top of it. Adding a new node takes under 25 lines.
+
+Part 2 — Styling: Built a dark professional UI from scratch — each node has its own accent color, the canvas has a dot-grid background, and results appear in an animated modal. Inspired by VectorShift's design system.
+
+Part 3 — Text Node: Two enhancements — the node auto-resizes in width and height as you type, and when you write {{variableName}} in the text, a new input Handle is dynamically created on the left side of the node for that variable. Powered by a regex that validates proper JavaScript identifier names.
+
+Part 4 — Backend Integration: The Submit button reads the current pipeline from Zustand state and POSTs nodes and edges to the FastAPI endpoint. The backend counts nodes and edges, then runs Kahn's Algorithm (topological sort) to detect whether the pipeline is a valid Directed Acyclic Graph. The result — node count, edge count, and DAG status — comes back and is displayed in a clean modal.
